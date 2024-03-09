@@ -4,14 +4,18 @@ Welcome to Notekraft, a collaborative note-taking web application that revolutio
 
 ## UI
 
+- Nextjs Framework + Reactjs
+- Redux store
+- Shadcn components library
+
 ### Framework Nextjs
 
 Next.js is a powerful React framework that simplifies the process of building modern web applications by providing a wide range of features and optimizations out of the box. Some features include SSR, auto code splitting, SSG, API routes, etc.
 
 - Run nextjs Project
-  $ cd note-kart
-  $ yarn
-  $ yarn dev
+  $ cd note-kart \n
+  $ yarn \n
+  $ yarn dev \n
 
 ### Shadcn
 
@@ -24,6 +28,13 @@ Shadcn is a powerful UI library designed to streamline the development of web ap
 
 All Shadcn components are in /src/components/ui folder
 
-Dropdown
-Button
-Themeswitcher
+-Dropdown
+-Button
+-Themeswitcher
+-Toast
+-Input
+-Label
+
+### Notes Editor Quilljs
+
+Quill.js is a modern WYSIWYG (What You See Is What You Get) editor designed for rich text editing in web applications.
