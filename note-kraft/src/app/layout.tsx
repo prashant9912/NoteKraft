@@ -1,7 +1,9 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Hanken_Grotesk } from "next/font/google";
-import "./globals.css";
-import { ReduxProvider } from "notekraft/providers/redux-provider";
+import { ReduxProvider } from "notekraft/components/providers/redux-provider";
+import { ThemeProvider } from "notekraft/components/providers/themes-provider";
+import { Toaster } from "notekraft/components/ui/toaster";
 
 /**
  * Base font for application
@@ -27,7 +29,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={baseFont.className}>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

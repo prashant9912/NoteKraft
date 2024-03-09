@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "note-kraft/components",
-    "utils": "note-kraft/lib/utils"
+    "components": "src/components",
+    "utils": "notekraft/lib/utils"
   }
 }

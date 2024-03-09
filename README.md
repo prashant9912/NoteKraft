@@ -21,3 +21,9 @@ Shadcn is a powerful UI library designed to streamline the development of web ap
   ./src/utils.ts generate class dynamically for Shadcn
 
 ### Shadcn Components
+
+All Shadcn components are in /src/components/ui folder
+
+Dropdown
+Button
+Themeswitcher
