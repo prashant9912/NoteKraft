@@ -20,7 +20,7 @@ export function HomePage() {
           </PageHeaderDescription>
           <PageActions>
             <Link
-              href="/docs"
+              href="/notes"
               className={cn(buttonVariants(), "rounded-[6px]")}
             >
               Get Started

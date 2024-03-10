@@ -1,32 +1,63 @@
 "use client";
 
 import { cn } from "notekraft/lib/utils";
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { FcGoogle } from "react-icons/fc";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
+/**
+ * Auth login form
+ */
+export function AuthForm({ ...props }) {
+  const router = useRouter();
 
-export function AuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value?.toLowerCase());
+    setError("");
+  };
+
+  const handlePasswordChange = (e: any) => {
+    setPassword(e.target.value);
+    setError("");
+  };
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        router.push("/notes");
+      }
+    } catch {
+    } finally {
       setIsLoading(false);
-    }, 3000);
+    }
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className={cn("grid gap-6")} {...props}>
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
-          <div className="grid gap-1">
+          <div className="grid gap-3">
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
@@ -37,6 +68,16 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
+              value={email}
+              onChange={handleEmailChange}
+              disabled={isLoading}
+            />
+            <Input
+              id="password"
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
               disabled={isLoading}
             />
           </div>
@@ -61,9 +102,10 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
           <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <FcGoogle size={32} className="pr-2" />
-        )}{" "}
+        )}
         Google Login
       </Button>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 }

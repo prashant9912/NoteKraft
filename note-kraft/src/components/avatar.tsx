@@ -8,22 +8,28 @@ import {
   DropdownMenuContent,
 } from "./ui/dropdown-menu";
 
-export function AvatarComponent() {
+interface AvatarComponentInterface {
+  signOut: Function;
+  email?: string;
+}
+export function AvatarComponent({ signOut, email }: AvatarComponentInterface) {
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="border-2">
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{email?.slice(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40">
-          <DropdownMenuItem>Hi</DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">Orders</DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onClick={() => {}}>
+          <DropdownMenuItem>Hi, {email}</DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              signOut();
+            }}
+          >
             Logout
           </DropdownMenuItem>
         </DropdownMenuContent>
