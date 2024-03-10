@@ -4,6 +4,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { FaRegSave } from "react-icons/fa";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { AiOutlineDelete } from "react-icons/ai";
+import { GrRevert } from "react-icons/gr";
 
 /**
  * Note header component
@@ -13,10 +14,19 @@ const NoteEditorHeader: FC<{
   titleChange: Function;
   handleNoteSave: Function;
   handleDelete: Function;
+  handleVersionClick: Function;
   saving: boolean;
   deleting: boolean;
 }> = memo(
-  ({ title, titleChange, handleNoteSave, saving, handleDelete, deleting }) => {
+  ({
+    title,
+    titleChange,
+    handleNoteSave,
+    saving,
+    handleDelete,
+    deleting,
+    handleVersionClick,
+  }) => {
     return (
       <>
         <div className="px-4 py-2 flex flex-row justify-between items-center">
@@ -28,6 +38,15 @@ const NoteEditorHeader: FC<{
             onChange={(event) => titleChange(event.target.value)}
           />
           <div className="flex flex-row space-x-2">
+            <Button
+              variant={"outline"}
+              onClick={() => {
+                handleVersionClick();
+              }}
+            >
+              <GrRevert />
+            </Button>
+
             <Button
               variant={"outline"}
               onClick={() => {

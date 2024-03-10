@@ -12,3 +12,8 @@ export type Note = {
   creator?: User;
   sharedWith?: User[];
 };
+
+export type NoteHistory = Note & {
+  parentNote?: string;
+  lastChangedAt?: Date;
+};

@@ -1,13 +1,11 @@
 "use server";
 
-import { Note } from "notekraft/types/note";
+import { Note, NoteHistory } from "notekraft/types/note";
 import { serverSession } from "notekraft/utils/nextAuth-utils";
 
 /**
  * Get notes from backend for current user
  *
- * @param userId User Id of current user
- * @param jwtToken Auth JWT token
  * @returns List of Notes
  */
 export async function getNotes(): Promise<Note[]> {
@@ -43,8 +41,9 @@ export async function getNotes(): Promise<Note[]> {
 /**
  * Save note
  *
- * @param userId User Id of current user
- * @param jwtToken Auth JWT token
+ * @param title Note title
+ * @param content Note content
+ * @param noteId Note Id
  * @returns List of Notes
  */
 export async function saveNote(
@@ -86,10 +85,9 @@ export async function saveNote(
 }
 
 /**
- * Save note
+ * Delete note
  *
- * @param userId User Id of current user
- * @param jwtToken Auth JWT token
+ * @param noteId Note Id which needs to be deleted
  * @returns List of Notes
  */
 export async function deleteNote(noteId: string): Promise<void> {
@@ -112,6 +110,40 @@ export async function deleteNote(noteId: string): Promise<void> {
     if (!response.ok) {
       return Promise.reject("Failed to delete note");
     }
+  } catch (error) {
+    console.error("Delete failed");
+    throw error;
+  }
+}
+
+/**
+ * Get notes history
+ *
+ * @param noteId Id of the note
+ * @returns List of Notes
+ */
+export async function getNotesHistory(noteId: string): Promise<NoteHistory[]> {
+  try {
+    const session = await serverSession();
+
+    const url = `${process.env.BACKEND_URL}/notes/history`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.user.jwtToken}`,
+      },
+      body: JSON.stringify({
+        noteId: noteId,
+      }),
+    });
+
+    if (!response.ok) {
+      return Promise.reject("Failed to get note history");
+    }
+    const data = (await response.json()) as Note[];
+    return data;
   } catch (error) {
     console.error("Delete failed");
     throw error;

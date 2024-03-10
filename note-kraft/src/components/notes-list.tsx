@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "notekraft/lib/utils";
-import { Note } from "notekraft/types/note";
+import { Note, NoteHistory } from "notekraft/types/note";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 
 interface NoteListInterface {
-  notes?: Note[];
-  noteClick: Function;
-  selectedNoteId: string;
+  notes?: Note[] | NoteHistory[];
+  noteClick?: Function;
+  selectedNoteId?: string;
 }
 
+/**
+ * Note list component
+ */
 export function NotesList({
   notes,
   noteClick,
@@ -20,7 +22,7 @@ export function NotesList({
   return (
     <ScrollArea className="h-full">
       <div className="flex flex-col gap-2 p-4 pt-0">
-        {notes?.length === 0 && <div>No notes, create one!</div>}
+        {notes?.length === 0 && <div>No notes</div>}
         {notes &&
           notes.map((note) => (
             <button
@@ -30,8 +32,9 @@ export function NotesList({
                 selectedNoteId === note._id && "bg-gray-300 dark:bg-gray-800"
               )}
               onClick={() => {
-                // setNoteSelected(note);
-                noteClick(note);
+                if (noteClick) {
+                  noteClick(note);
+                }
               }}
             >
               <div className="flex w-full flex-col gap-1">
@@ -51,6 +54,13 @@ export function NotesList({
                       formatDistanceToNow(note.updatedAt, {
                         addSuffix: true,
                       })}
+                    {(note as NoteHistory).lastChangedAt &&
+                      formatDistanceToNow(
+                        (note as NoteHistory).lastChangedAt ?? "",
+                        {
+                          addSuffix: true,
+                        }
+                      )}
                   </div>
                 </div>
                 {/* <div className="text-xs font-medium">

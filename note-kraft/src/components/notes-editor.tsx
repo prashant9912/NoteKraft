@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import QuillEditor from "./quill-editor";
 import { setNotes } from "notekraft/utils/redux/reducers/notes";
@@ -10,17 +11,20 @@ import {
   saveNote,
 } from "notekraft/services/notes-service";
 import { toast } from "./ui/use-toast";
-import { useState } from "react";
 import {
   clearSelectedNote,
   setSelectedNote,
   setSelectedNoteContent,
   setSelectedNoteTitle,
 } from "notekraft/utils/redux/reducers/selected-note";
+import VersionControl from "./version-control";
+import { Note, NoteHistory } from "notekraft/types/note";
 
 export function NotesEditor() {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  const [historyController, showHistoryController] = useState(false);
 
   const { selectedNote } = useSelector((state: any) => state.selectedNote);
   const dispatch = useDispatch();
@@ -88,6 +92,23 @@ export function NotesEditor() {
     dispatch(setNotes(notes));
   };
 
+  /**
+   * Show revert version sheet
+   */
+  const handleVersionClick = () => {
+    showHistoryController(true);
+  };
+
+  /**
+   * Revert note
+   * @param noteHistory History note
+   */
+  const handleVersionRevert = (noteHistory: NoteHistory) => {
+    const note: Note = { ...noteHistory, _id: noteHistory.parentNote };
+    dispatch(setSelectedNote(note));
+    showHistoryController(false);
+  };
+
   return (
     <div className="h-full">
       <NoteEditorHeader
@@ -97,10 +118,17 @@ export function NotesEditor() {
         titleChange={titleChange}
         saving={saving}
         deleting={deleting}
+        handleVersionClick={handleVersionClick}
       />
       <QuillEditor
         onEditorChange={onEditorChange}
         content={selectedNote?.content ?? ""}
+      />
+      <VersionControl
+        noteId={selectedNote._id}
+        historyController={historyController}
+        showHistoryController={showHistoryController}
+        handleVersionRevert={handleVersionRevert}
       />
     </div>
   );

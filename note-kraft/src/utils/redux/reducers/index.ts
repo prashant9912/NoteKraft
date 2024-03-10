@@ -1,10 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import counterReducer from "./counter";
-import notesReducer from "./counter";
+import notesReducer from "./notes";
 import selectedNote from "./selected-note";
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
   notes: notesReducer,
   selectedNote: selectedNote,
 });
