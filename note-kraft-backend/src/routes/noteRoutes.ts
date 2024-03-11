@@ -1,17 +1,24 @@
 import express from "express";
+import { authMiddleware } from "../middlewares/auth-middleware";
 import {
   deleteNoteById,
   saveNote,
-  getNotesForUser,
+  getNotesWithAccess,
   getNotesHistory,
+  shareNoteWithUser,
+  findAccessByNoteId,
 } from "../controllers/noteController";
-import { authMiddleware } from "../middlewares/auth-middleware";
 
 const router = express.Router();
 
-router.post("/history", authMiddleware, getNotesHistory);
 router.delete("/deleteNote", authMiddleware, deleteNoteById);
-router.post("/getNotes", authMiddleware, getNotesForUser);
+router.post("/getNotes", authMiddleware, getNotesWithAccess);
 router.put("/saveNote", authMiddleware, saveNote);
+
+router.post("/history", authMiddleware, getNotesHistory);
+
+//share note endpoints
+router.put("/shareNote", authMiddleware, shareNoteWithUser);
+router.post("/getAccessList", authMiddleware, findAccessByNoteId);
 
 export default router;

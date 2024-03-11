@@ -15,7 +15,7 @@ export default async function Notes({ children }: { children: ReactNode }) {
   if (session) {
     return <NotesLayout>{children}</NotesLayout>;
   } else {
-    redirect("/login");
+    redirect("/auth/login");
   }
 }
 

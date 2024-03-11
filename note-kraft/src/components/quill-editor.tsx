@@ -4,6 +4,7 @@ import { memo, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "./ui/use-toast";
+import { NoteAccessLevel } from "notekraft/types/note-access";
 
 const modules: Record<string, any> = {
   toolbar: [
@@ -21,21 +22,21 @@ const modules: Record<string, any> = {
 interface QuillEditorInterface {
   onEditorChange: Function;
   content: string;
+  accessLevel: NoteAccessLevel;
 }
 
 /**
  * Editor component for notes with file drag and drop support.
  */
-function QuillEditor({ onEditorChange, content }: QuillEditorInterface) {
+function QuillEditor({
+  onEditorChange,
+  content,
+  accessLevel,
+}: QuillEditorInterface) {
   const ReactQuill: any = useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
     []
   );
-
-  // // State for storing editor HTML content
-  // const [editorHtml, setEditorHtml] = useState<string>(
-  //   `<p><span style="color: red; border: 1px solid black;">lol</span></p>`
-  // );
 
   const quillRef = useRef<any>();
 
@@ -93,6 +94,7 @@ function QuillEditor({ onEditorChange, content }: QuillEditorInterface) {
         onChange={onEditorChange}
         className="h-full"
         modules={modules}
+        readOnly={accessLevel === NoteAccessLevel.VIEWER}
       />
     </div>
   );

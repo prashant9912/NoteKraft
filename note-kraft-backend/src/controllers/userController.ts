@@ -2,9 +2,18 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import { jwtUtil } from "../utils/jwt";
 
+/**
+ * Handles user register
+ */
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(401).json({ error: "User already exists" });
+    }
+
     const newUser = new User({ email, password });
     await newUser.save();
     res.status(200).json({ user: newUser.email, _id: newUser._id });

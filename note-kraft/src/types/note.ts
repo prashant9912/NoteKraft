@@ -1,3 +1,4 @@
+import { NoteAccessLevel } from "./note-access";
 import { User } from "./user";
 
 /**
@@ -9,8 +10,8 @@ export type Note = {
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  creator?: User;
-  sharedWith?: User[];
+  user?: User;
+  accessLevel: NoteAccessLevel;
 };
 
 export type NoteHistory = Note & {

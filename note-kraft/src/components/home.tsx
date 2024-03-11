@@ -26,7 +26,7 @@ export function HomePage() {
               Get Started
             </Link>
             <Link
-              href="/login"
+              href="/auth/login"
               className={cn(
                 buttonVariants({ variant: "outline" }),
                 "rounded-[6px]"

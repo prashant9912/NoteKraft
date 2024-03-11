@@ -2,6 +2,13 @@
 
 Welcome to Notekraft, a collaborative note-taking web application that revolutionizes how teams work together on notes!
 
+Features
+
+- Login/Register
+- Notes create/edit/delete
+- Notes history supportive
+- Share notes with other users with email
+
 ## UI
 
 - Nextjs Framework + Reactjs
@@ -50,7 +57,8 @@ Link- https://next-auth.js.org
 
 -Public Routes
 /
-/login
+/auth/login
+/auth/signup
 
 -Protected routes
 /notes
