@@ -18,7 +18,9 @@ services:
     ports:
       - "4000:4000"
     environment:
+      PORT: 4000
       MONGODB_URI: "mongodb://root:example@mongo:27017"
+      JWT_KEY: VF4FtGwFRKWmT0ALhQ7RZyBrOgC7tBFS/4X+RR9fd3gjuuRFv2oVfA==
     depends_on:
       - mongo
 

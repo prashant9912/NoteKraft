@@ -9,6 +9,12 @@ Features
 - Notes history supportive
 - Share notes with other users with email
 
+Notes entitlements
+
+- Owner have access to edit/delete/share/revert
+- Editor have access to edit/delete/revert
+- View have only acces to view
+
 ## UI
 
 - Nextjs Framework + Reactjs

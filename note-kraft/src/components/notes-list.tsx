@@ -4,6 +4,8 @@ import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "notekraft/lib/utils";
 import { Note, NoteHistory } from "notekraft/types/note";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+import { Badge } from "./ui/badge";
+import { NoteAccessLevel } from "notekraft/types/note-access";
 
 interface NoteListInterface {
   notes?: Note[] | NoteHistory[];
@@ -63,12 +65,19 @@ export function NotesList({
                       )}
                   </div>
                 </div>
-                {/* <div className="text-xs font-medium">
-               
-              </div> */}
               </div>
-              <div className="line-clamp-2 text-xs text-muted-foreground">
-                {note.content?.slice(0, 10)}
+              <div className="flex flex-row justify-between w-full">
+                <div className="line-clamp-2 text-xs text-muted-foreground">
+                  {note.content
+                    ?.slice(0, 20)
+                    .replace(/<[^>]*(>|$)|<\/[^>]*>/g, "")}
+                </div>
+                {note.accessLevel &&
+                  note.accessLevel !== NoteAccessLevel.OWNER && (
+                    <Badge className="scale-75">
+                      {note.accessLevel?.toUpperCase()}
+                    </Badge>
+                  )}
               </div>
             </button>
           ))}

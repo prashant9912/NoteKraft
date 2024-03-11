@@ -5,10 +5,9 @@ import { AvatarComponent } from "./avatar";
 import { NotesList } from "./notes-list";
 import { signOut, useSession } from "next-auth/react";
 import { getNotes } from "notekraft/services/notes-service";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Note } from "notekraft/types/note";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 import { Separator } from "./ui/separator";
 import { MdAdd } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,15 +20,10 @@ import {
 
 export function Sidebar() {
   const { data: session } = useSession();
-  const router = useRouter();
-
-  // const [notes, setNotes] = useState<Note[]>();
-  const [isError, setError] = useState("");
+  const dispatch = useDispatch();
 
   const notesState = useSelector((state: any) => state.notes);
   const { selectedNote } = useSelector((state: any) => state.selectedNote);
-
-  const dispatch = useDispatch();
 
   const fetchNotes = async () => {
     try {
@@ -44,17 +38,12 @@ export function Sidebar() {
     fetchNotes();
   }, []);
 
-  /**
-   * Navigates to specific note page
-   * @param id Note id
-   */
   const noteClick = (note: Note) => {
     dispatch(setSelectedNote(note));
   };
 
   const createNewNote = () => {
     dispatch(clearSelectedNote());
-    // router.push(`/notes`);
   };
 
   return (
@@ -73,24 +62,14 @@ export function Sidebar() {
             Create new note
             <MdAdd className="ml-2" />
           </Button>
-          {/* <Button variant={"outline"}>
-            Save Note
-            <FaRegSave className="ml-2" />
-          </Button> */}
-          {/* <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" /> */}
-          {/* <Input placeholder="Search" className="pl-8" /> */}
         </div>
       </div>
       <div className="m-0 h-full">
-        {!isError ? (
-          <NotesList
-            notes={notesState.notes}
-            noteClick={noteClick}
-            selectedNoteId={selectedNote?._id ?? ""}
-          />
-        ) : (
-          <div>{isError}</div>
-        )}
+        <NotesList
+          notes={notesState.notes}
+          noteClick={noteClick}
+          selectedNoteId={selectedNote?._id ?? ""}
+        />
       </div>
     </div>
   );
