@@ -6,7 +6,8 @@ const uploadController = require("../controllers/uploadController");
 
 const router = express.Router();
 
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.post(
   "/file",

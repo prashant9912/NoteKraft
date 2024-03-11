@@ -2,69 +2,72 @@
 
 Welcome to Notekraft, a collaborative note-taking web application that revolutionizes how teams work together on notes!
 
-Features
+### Features
 
-- Login/Register
-- Notes create/edit/delete
-- Notes history supportive
-- Share notes with other users with email
+- **Login/Register:** Users can sign up or log in to access their notes.
+- **Notes Management:** Create, edit, and delete notes with ease.
+- **Notes History:** Access a full history of changes made to each note.
+- **Share Notes:** Collaborate by sharing notes with other users via email.
+- **Upload File/Image (up to 10MB):** Share files and images along with notes.
 
-Notes entitlements
+### Notes Entitlements
 
-- Owner have access to edit/delete/share/revert
-- Editor have access to edit/delete/revert
-- View have only acces to view
+- **Owner:** Can edit, delete, share, and revert notes.
+- **Editor:** Can edit, delete, and revert notes.
+- **Viewer:** Has read-only access to notes.
 
-## UI
+### UI
 
-- Nextjs Framework + Reactjs
-- Redux store
-- Shadcn components library
+#### Framework - Next.js
 
-### Framework Nextjs
+Next.js is a powerful React framework that simplifies the process of building modern web applications by providing a wide range of features and optimizations out of the box. Some features include server-side rendering (SSR), automatic code splitting, static site generation (SSG), and API routes.
 
-Next.js is a powerful React framework that simplifies the process of building modern web applications by providing a wide range of features and optimizations out of the box. Some features include SSR, auto code splitting, SSG, API routes, etc.
+To run the Next.js project:
 
-- Run nextjs Project
-  $ cd note-kart \n
-  $ yarn \n
-  $ yarn dev \n
+```bash
+cd note-kart
+yarn
+yarn dev
+```
 
-### Shadcn
+#### Shadcn UI Library
 
-Shadcn is a powerful UI library designed to streamline the development of web applications by providing a comprehensive set of reusable components and styles.
+Shadcn is a robust UI library designed to streamline web application development by offering a comprehensive set of reusable components and styles.
 
-- Dynamic class generator
-  ./src/utils.ts generate class dynamically for Shadcn
+- **Dynamic Class Generator:** `./src/utils.ts` dynamically generates classes for Shadcn.
 
-### Shadcn Components
+#### Shadcn Components
 
-All Shadcn components are in /src/components/ui folder
+All Shadcn components are located in the `/src/components/ui` folder and include:
 
--Dropdown
--Button
--Themeswitcher
--Toast
--Input
--Label
+- Dropdown
+- Button
+- Theme Switcher
+- Toast
+- Input
+- Label
 
-### Notes Editor Quilljs
+#### Notes Editor - Quill.js
 
 Quill.js is a modern WYSIWYG (What You See Is What You Get) editor designed for rich text editing in web applications.
 
-## Docker
+### Docker
 
-docker compose up --build
+Run the following command to build and start the Docker container:
 
-### Auth - NextAuth
+```bash
+docker-compose up --build
+```
 
-Since we are using Nextjs, NextAuth comes with tones of feature which can handle our routes for both server side and client side.
-Link- https://next-auth.js.org
+### Authentication - NextAuth
 
--Public Routes
-/
-/auth/login
-/auth/signup
+NextAuth provides robust authentication capabilities for Next.js projects, handling both server-side and client-side routes seamlessly.
 
--Protected routes
-/notes
+- **Public Routes:**
+
+  - `/`
+  - `/auth/login`
+  - `/auth/signup`
+
+- **Protected Routes:**
+  - `/notes`

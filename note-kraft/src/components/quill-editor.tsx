@@ -1,10 +1,12 @@
 "use client";
 
-import { memo, useMemo, useRef } from "react";
-import dynamic from "next/dynamic";
+import { memo, useRef } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "./ui/use-toast";
 import { NoteAccessLevel } from "notekraft/types/note-access";
+import { uploadFile } from "notekraft/services/uploader-service";
+import ReactQuill from "react-quill";
+import { useSession } from "next-auth/react";
 
 const modules: Record<string, any> = {
   toolbar: [
@@ -33,10 +35,7 @@ function QuillEditor({
   content,
   accessLevel,
 }: QuillEditorInterface) {
-  const ReactQuill: any = useMemo(
-    () => dynamic(() => import("react-quill"), { ssr: false }),
-    []
-  );
+  const { data: session } = useSession();
 
   const quillRef = useRef<any>();
 
@@ -51,16 +50,19 @@ function QuillEditor({
     if (file) {
       if (file.type.startsWith("image/") || file.size <= 10 * 1024 * 1024) {
         const reader = new FileReader();
-        reader.onload = () => {
+        reader.onload = async () => {
           const range = quillRef.current?.getEditor().getSelection(true);
           const index = range ? range.index : 0;
+
           if (quillRef.current) {
+            const fileURL = await uploadFile(
+              file,
+              session?.user.jwtToken ?? ""
+            );
             if (file.type.startsWith("image/")) {
-              quillRef.current
-                .getEditor()
-                .insertEmbed(index, "image", reader.result);
+              quillRef.current.getEditor().insertEmbed(index, "image", fileURL);
             } else {
-              const customImagePlaceholder = `<em><img src="./file.png" style="width: 70px;"/>${file.name}</em><p><br /></p>`;
+              const customImagePlaceholder = `<a href="${fileURL}" target="_blank">${file.name}</a>`;
               quillRef.current
                 .getEditor()
                 .clipboard.dangerouslyPasteHTML(
@@ -88,10 +90,10 @@ function QuillEditor({
       className="h-full"
     >
       <ReactQuill
-        ref={quillRef as any}
+        ref={quillRef}
         theme="snow"
         value={content}
-        onChange={onEditorChange}
+        onChange={(value) => onEditorChange(value)}
         className="h-full"
         modules={modules}
         readOnly={accessLevel === NoteAccessLevel.VIEWER}

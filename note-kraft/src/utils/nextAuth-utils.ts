@@ -17,7 +17,6 @@ export const nextAuthOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           if (credentials?.email && credentials?.password) {
-            console.log("CREDENTIALS", credentials);
             const userResponse = await loginUser(
               credentials.email,
               credentials.password

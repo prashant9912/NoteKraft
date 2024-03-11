@@ -11,7 +11,7 @@ export type Note = {
   createdAt?: Date;
   updatedAt?: Date;
   user?: User;
-  accessLevel: NoteAccessLevel;
+  accessLevel?: NoteAccessLevel;
 };
 
 export type NoteHistory = Note & {

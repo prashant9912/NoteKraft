@@ -20,12 +20,9 @@ export const uploadFile = async (req: Request, res: Response) => {
       ACL: "public-read",
     };
 
-    // Perform the upload
     const data = await s3.upload(params).promise();
 
     const url = data.Location;
-    console.log(url);
-
     res.status(200).json({ message: "File uploaded successfully", url: url });
   } catch (error) {
     console.error("Error uploading file:", error);
