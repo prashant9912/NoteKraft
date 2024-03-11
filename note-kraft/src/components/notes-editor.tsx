@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import QuillEditor from "./quill-editor";
 import { setNotes } from "notekraft/utils/redux/reducers/notes";
 import NoteEditorHeader from "./note-header";
 import {
   deleteNote,
-  getNoteAccessList,
   getNotes,
   saveNote,
   shareNote,

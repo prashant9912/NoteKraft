@@ -1,10 +1,5 @@
 import { ThemeSwitcher } from "notekraft/components/ThemeSwitcher";
 import { HomePage } from "notekraft/components/home";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "notekraft/components/ui/avatar";
 
 export default function Home() {
   return (
