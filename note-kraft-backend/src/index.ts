@@ -4,6 +4,8 @@ import connectDB from "./database/db";
 
 import userRoutes from "./routes/userRoutes";
 import noteRoutes from "./routes/noteRoutes";
+import uploadRoutes from "./routes/uploadRoutes";
+
 import bodyParser from "body-parser";
 import cors from "cors";
 
@@ -23,6 +25,7 @@ app.get("/", (req: Request, res: Response) => {
 // Set up routes
 app.use("/api/notes", noteRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/upload", uploadRoutes);
 
 //connects to mongo DB
 connectDB();
