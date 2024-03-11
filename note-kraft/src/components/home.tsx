@@ -7,11 +7,12 @@ import {
 } from "./ui/page-headers";
 import { buttonVariants } from "./ui/button";
 import { cn } from "notekraft/lib/utils";
+import Image from "next/image";
 
 export function HomePage() {
   return (
     <>
-      <div className="container relative">
+      <div className="container relative flex flex-col items-center">
         <PageHeader>
           <PageHeaderHeading>Note Kraft ✏️</PageHeaderHeading>
           <PageHeaderDescription>
@@ -36,6 +37,14 @@ export function HomePage() {
             </Link>
           </PageActions>
         </PageHeader>
+
+        <Image
+          className="mt-[-50px]"
+          src="/feature-images.png"
+          alt="notekraft featured image"
+          width={700}
+          height={300}
+        />
       </div>
     </>
   );
