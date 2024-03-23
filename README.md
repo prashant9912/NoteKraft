@@ -59,6 +59,7 @@ All Shadcn components are located in the `/src/components/ui` folder and include
 #### Notes Editor - Quill.js
 
 Quill.js is a modern WYSIWYG (What You See Is What You Get) editor designed for rich text editing in web applications.
+![https://quilljs.com/](https://quilljs.com/)
 
 ### Docker
 
@@ -71,6 +72,7 @@ docker-compose up --build
 ### Authentication - NextAuth
 
 NextAuth provides robust authentication capabilities for Next.js projects, handling both server-side and client-side routes seamlessly.
+![https://next-auth.js.org/](https://next-auth.js.org/)
 
 - **Public Routes:**
 
