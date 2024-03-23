@@ -4,13 +4,19 @@
 
 Welcome to Notekraft, a collaborative note-taking web application that revolutionizes how teams work together on notes!
 
+### Tech Stack
+- Nextjs
+- Nodejs
+- Docker
+- AWS S3
+
 ### Features
 
 - **Login/Register:** Users can sign up or log in to access their notes.
 - **Notes Management:** Create, edit, and delete notes with ease.
 - **Notes History:** Access a full history of changes made to each note.
 - **Share Notes:** Collaborate by sharing notes with other users via email.
-- **Upload File/Image (up to 10MB):** Share files and images along with notes.
+- **Upload File/Image (up to 10MB):** Share files and images along with notes, and uploads to S3.
 
 ### Notes Entitlements
 
@@ -48,6 +54,7 @@ All Shadcn components are located in the `/src/components/ui` folder and include
 - Toast
 - Input
 - Label
+- & More
 
 #### Notes Editor - Quill.js
 
