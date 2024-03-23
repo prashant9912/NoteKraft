@@ -16,7 +16,7 @@ Welcome to Notekraft, a collaborative note-taking web application that revolutio
 - **Notes Management:** Create, edit, and delete notes with ease.
 - **Notes History:** Access a full history of changes made to each note.
 - **Share Notes:** Collaborate by sharing notes with other users via email.
-- **Upload File/Image (up to 10MB):** Share files and images along with notes, and uploads to S3.
+- **Upload File/Image (up to 10MB):** Share files and images along with notes (file uploads to s3)
 
 ### Notes Entitlements
 
